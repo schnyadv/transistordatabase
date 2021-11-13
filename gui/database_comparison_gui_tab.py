@@ -11,7 +11,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
-        uic.loadUi('pre-work.ui', self)
+        uic.loadUi('pre-work_2.ui', self)
         _translate = QtCore.QCoreApplication.translate
         # self.setWindowIcon(QIcon('Images\\logo.png'))
         self.setWindowTitle(_translate("MainWindow", "transistordatabase"))
@@ -44,10 +44,11 @@ class MainWindow(QMainWindow):
         energy_off_collection = {}
         diode_channel_collection = {}
         diode_energy_rr_collection = {}
-        output_cap_collection = {}
+        output_imp_collection = {}
         self.mplWidgetOne.canvas.axes.clear()
         sc = {}
         for index, transistor in enumerate([transistor_one, transistor_two, transistor_three]):
+            # Switch channel and loss energy collection
             for channel in transistor.switch.channel:
                 if channel.t_j == 125:
                     channel_collection[index+1] = channel.graph_v_i
@@ -63,6 +64,7 @@ class MainWindow(QMainWindow):
                         energy_off_collection[index+1] = e_off.graph_i_e
                     elif e_off.t_j == 125 and e_off.v_g == -15:
                         energy_off_collection[index + 1] = e_off.graph_i_e
+            # Diode channel and loss energy collection
             for channel in transistor.diode.channel:
                 if channel.t_j == 125:
                     diode_channel_collection[index + 1] = channel.graph_v_i
@@ -72,16 +74,15 @@ class MainWindow(QMainWindow):
                         diode_energy_rr_collection[index + 1] = e_rr.graph_i_e
                     elif e_rr.t_j == 125:
                         diode_energy_rr_collection[index + 1] = e_rr.graph_i_e
-
-            for c_oss in transistor.c_oss:
-                if c_oss.t_j == 25:
-                    output_cap_collection[index + 1] = c_oss.graph_v_c
+            # Switch impedance curve collection
+            output_imp_collection[index + 1] = transistor.switch.thermal_foster.graph_t_rthjc
 
         # Graphs starts from here
         color = {1: "red", 2: "green", 3: "blue"}
+        labels = {1: transistor_one.name, 2: transistor_two.name, 3: transistor_three.name}
         for key, value in channel_collection.items():
             collection = value.tolist()
-            self.mplWidgetOne.canvas.axes.plot(collection[0], collection[1], label='Inline label', color=color[key])
+            self.mplWidgetOne.canvas.axes.plot(collection[0], collection[1], label=labels[key], color=color[key])
         x_label = 'Voltage [V]'
         y_label = 'Current [A]'
         self.mplWidgetOne.canvas.axes.set_xlabel(x_label)
@@ -89,7 +90,7 @@ class MainWindow(QMainWindow):
 
         for key, value in diode_channel_collection.items():
             collection = value.tolist()
-            self.mplWidgetFour.canvas.axes.plot(collection[0], collection[1], label='Inline label', color=color[key])
+            self.mplWidgetFour.canvas.axes.plot(collection[0], collection[1], label=labels[key], color=color[key])
         x_label = 'Voltage [V]'
         y_label = 'Current [A]'
         self.mplWidgetFour.canvas.axes.set_xlabel(x_label)
@@ -97,7 +98,7 @@ class MainWindow(QMainWindow):
 
         for key, value in energy_on_collection.items():
             collection = value.tolist()
-            self.mplWidgetTwo.canvas.axes.plot(collection[0], collection[1], label='Inline label', color=color[key])
+            self.mplWidgetTwo.canvas.axes.plot(collection[0], collection[1], label=labels[key], color=color[key])
         x_label = 'Current [A]'
         y_label = 'Energy [J]'
         self.mplWidgetTwo.canvas.axes.set_xlabel(x_label)
@@ -105,7 +106,7 @@ class MainWindow(QMainWindow):
 
         for key, value in energy_off_collection.items():
             collection = value.tolist()
-            self.mplWidgetThree.canvas.axes.plot(collection[0], collection[1], label='Inline label', color=color[key])
+            self.mplWidgetThree.canvas.axes.plot(collection[0], collection[1], label=labels[key], color=color[key])
         x_label = 'Current [A]'
         y_label = 'Energy [J]'
         self.mplWidgetThree.canvas.axes.set_xlabel(x_label)
@@ -113,32 +114,45 @@ class MainWindow(QMainWindow):
 
         for key, value in diode_energy_rr_collection.items():
             collection = value.tolist()
-            self.mplWidgetFive.canvas.axes.plot(collection[0], collection[1], label='Inline label', color=color[key])
+            self.mplWidgetFive.canvas.axes.plot(collection[0], collection[1], label=labels[key], color=color[key])
         x_label = 'Current [A]'
         y_label = 'Energy [J]'
         self.mplWidgetFive.canvas.axes.set_xlabel(x_label)
         self.mplWidgetFive.canvas.axes.set_ylabel(y_label)
 
-        for key, value in output_cap_collection.items():
+        for key, value in output_imp_collection.items():
             collection = value.tolist()
-            self.mplWidgetSix.canvas.axes.semilogy(collection[0], collection[1], label='Inline label', color=color[key])
-        x_label = 'Voltage [V]'
-        y_label = 'Capacitance [pF]'
+            self.mplWidgetSix.canvas.axes.loglog(collection[0], collection[1], label=labels[key], color=color[key])
+        x_label = 'time [s]'
+        y_label = 'Energy [J]'
         self.mplWidgetSix.canvas.axes.set_xlabel(x_label)
         self.mplWidgetSix.canvas.axes.set_ylabel(y_label)
 
+        self.mplWidgetOne.canvas.axes.legend(loc=2, prop={'size': 5})
+        self.mplWidgetTwo.canvas.axes.legend(loc=2, prop={'size': 5})
+        self.mplWidgetThree.canvas.axes.legend(loc=2, prop={'size': 5})
+        self.mplWidgetFour.canvas.axes.legend(loc=2, prop={'size': 5})
+        self.mplWidgetFive.canvas.axes.legend(loc=2, prop={'size': 5})
+        self.mplWidgetSix.canvas.axes.legend(loc=2, prop={'size': 5})
+        self.mplWidgetOne.canvas.axes.grid()
+        self.mplWidgetTwo.canvas.axes.grid()
+        self.mplWidgetThree.canvas.axes.grid()
+        self.mplWidgetFour.canvas.axes.grid()
+        self.mplWidgetFive.canvas.axes.grid()
+        self.mplWidgetSix.canvas.axes.grid()
         self.mplWidgetOne.canvas.figure.set_visible(True)
-        self.mplWidgetOne.canvas.draw()
         self.mplWidgetTwo.canvas.figure.set_visible(True)
-        self.mplWidgetTwo.canvas.draw()
         self.mplWidgetThree.canvas.figure.set_visible(True)
-        self.mplWidgetThree.canvas.draw()
         self.mplWidgetFour.canvas.figure.set_visible(True)
-        self.mplWidgetFour.canvas.draw()
         self.mplWidgetFive.canvas.figure.set_visible(True)
-        self.mplWidgetFive.canvas.draw()
         self.mplWidgetSix.canvas.figure.set_visible(True)
+        self.mplWidgetOne.canvas.draw()
+        self.mplWidgetTwo.canvas.draw()
+        self.mplWidgetThree.canvas.draw()
+        self.mplWidgetFour.canvas.draw()
+        self.mplWidgetFive.canvas.draw()
         self.mplWidgetSix.canvas.draw()
+
 
         markers = ['o', 'd', 's']
 
