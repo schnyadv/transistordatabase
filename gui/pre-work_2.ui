@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>911</width>
-    <height>687</height>
+    <height>713</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -175,7 +175,7 @@
                 <item row="5" column="0">
                  <widget class="QLabel" name="transNumLabelThree">
                   <property name="text">
-                   <string>Number of Transistors       </string>
+                   <string>No.of parallel Transistors</string>
                   </property>
                  </widget>
                 </item>
@@ -292,7 +292,7 @@
                 <item row="0" column="0">
                  <widget class="QLabel" name="juncTempLabelThree">
                   <property name="text">
-                   <string>Channel Junction Temp [°C] </string>
+                   <string>Channel Junction Temp. [°C] </string>
                   </property>
                  </widget>
                 </item>
@@ -312,6 +312,9 @@
                   </property>
                   <property name="verticalScrollBarPolicy">
                    <enum>Qt::ScrollBarAlwaysOff</enum>
+                  </property>
+                  <property name="plainText">
+                   <string>1</string>
                   </property>
                  </widget>
                 </item>
@@ -337,7 +340,7 @@
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_4">
                   <property name="text">
-                   <string>Energy Junction Temp [°C] </string>
+                   <string>Switching Loss Temp. [°C] </string>
                   </property>
                  </widget>
                 </item>
@@ -429,7 +432,14 @@
                <enum>QLayout::SetDefaultConstraint</enum>
               </property>
               <item>
-               <widget class="QComboBox" name="comboBoxTransOne"/>
+               <widget class="QComboBox" name="comboBoxTransOne">
+                <property name="focusPolicy">
+                 <enum>Qt::ClickFocus</enum>
+                </property>
+                <property name="autoFillBackground">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
               <item>
                <layout class="QGridLayout" name="transOneGridLayout">
@@ -529,7 +539,7 @@
                 <item row="0" column="0">
                  <widget class="QLabel" name="juncTempLabelOne">
                   <property name="text">
-                   <string>Channel Junction Temp [°C] </string>
+                   <string>Channel Junction Temp. [°C] </string>
                   </property>
                  </widget>
                 </item>
@@ -576,6 +586,9 @@
                   </property>
                   <property name="verticalScrollBarPolicy">
                    <enum>Qt::ScrollBarAlwaysOff</enum>
+                  </property>
+                  <property name="plainText">
+                   <string>1</string>
                   </property>
                  </widget>
                 </item>
@@ -628,7 +641,7 @@
                 <item row="5" column="0">
                  <widget class="QLabel" name="transNumLabelOne">
                   <property name="text">
-                   <string>Number of Transistors       </string>
+                   <string>No.of parallel Transistors</string>
                   </property>
                  </widget>
                 </item>
@@ -654,7 +667,7 @@
                 <item row="1" column="0">
                  <widget class="QLabel" name="label">
                   <property name="text">
-                   <string>Energy Junction Temp [°C] </string>
+                   <string>Switching Loss Temp. [°C] </string>
                   </property>
                  </widget>
                 </item>
@@ -702,7 +715,7 @@
                 <item row="5" column="0">
                  <widget class="QLabel" name="transNumLabelTwo">
                   <property name="text">
-                   <string>Number of Transistors       </string>
+                   <string>No.of parallel Transistors</string>
                   </property>
                  </widget>
                 </item>
@@ -766,7 +779,7 @@
                 <item row="0" column="0">
                  <widget class="QLabel" name="juncTempLabelTwo">
                   <property name="text">
-                   <string>Channel Junction Temp [°C] </string>
+                   <string>Channel Junction Temp. [°C] </string>
                   </property>
                  </widget>
                 </item>
@@ -846,6 +859,10 @@
                   <property name="verticalScrollBarPolicy">
                    <enum>Qt::ScrollBarAlwaysOff</enum>
                   </property>
+                  <property name="plainText">
+                   <string>1
+</string>
+                  </property>
                  </widget>
                 </item>
                 <item row="6" column="2">
@@ -893,7 +910,7 @@
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_2">
                   <property name="text">
-                   <string>Energy Junction Temp [°C] </string>
+                   <string>Switching Loss Temp. [°C] </string>
                   </property>
                  </widget>
                 </item>
@@ -904,11 +921,11 @@
             <item row="1" column="0">
              <widget class="QComboBox" name="comboBoxChannel">
               <property name="currentText">
-               <string>Switch Channel Data</string>
+               <string>Switch Conduction Behavior</string>
               </property>
               <item>
                <property name="text">
-                <string>Switch Channel Data</string>
+                <string>Switch Conduction Behavior</string>
                </property>
               </item>
              </widget>
@@ -917,7 +934,7 @@
              <widget class="QComboBox" name="comboBoxDiodeChannel">
               <item>
                <property name="text">
-                <string>Diode Channel Data</string>
+                <string>Diode Conduction Behavior</string>
                </property>
               </item>
              </widget>
@@ -926,7 +943,7 @@
              <widget class="QComboBox" name="comboBoxTurnOn">
               <item>
                <property name="text">
-                <string>Switch Turn On Energy</string>
+                <string>Switch Turn-on Energy</string>
                </property>
               </item>
              </widget>
@@ -935,7 +952,7 @@
              <widget class="QComboBox" name="comboBoxReverse">
               <item>
                <property name="text">
-                <string>Diode Reverse recovery Energy</string>
+                <string>Diode Reverse Recovery Energy</string>
                </property>
               </item>
              </widget>
@@ -953,7 +970,7 @@
              <widget class="QComboBox" name="comboBox_6">
               <item>
                <property name="text">
-                <string>Switch Turn Off Energy</string>
+                <string>Switch Turn-off Energy</string>
                </property>
               </item>
              </widget>

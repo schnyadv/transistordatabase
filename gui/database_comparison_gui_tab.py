@@ -27,6 +27,10 @@ class MainWindow(QMainWindow):
         self.comboBoxTransTwo.currentTextChanged.connect(self.populate_transistors)
         self.comboBoxTransThree.currentTextChanged.connect(self.populate_transistors)
         self.populate_graphs(trans_list)
+        self.comboBoxTransOne.setStyleSheet("background-color: rgb(245, 34, 34) ; color: rgb(133, 10, 5);")
+        self.comboBoxTransTwo.setStyleSheet("background-color: rgb(34, 245, 34) ; color: rgb(4, 112, 13);")
+        self.comboBoxTransThree.setStyleSheet("background-color: rgb(80, 85, 242) ; color: rgb(15, 4, 112);")
+        #.setPalette(QPalette(blue))
 #        self.simulateBtn.clicked.connect(self.simulate)
 
 
