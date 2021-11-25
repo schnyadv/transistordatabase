@@ -2,6 +2,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 import matplotlib.pyplot as plt
+import numpy as np
 from PyQt5 import QtCore, uic, QtGui
 from PyQt5.QtGui import QIcon, QPixmap
 import transistordatabase as tdb
@@ -132,12 +133,12 @@ class MainWindow(QMainWindow):
         self.mplWidgetSix.canvas.axes.set_xlabel(x_label)
         self.mplWidgetSix.canvas.axes.set_ylabel(y_label)
 
-        self.mplWidgetOne.canvas.axes.legend(loc=2, prop={'size': 5})
-        self.mplWidgetTwo.canvas.axes.legend(loc=2, prop={'size': 5})
-        self.mplWidgetThree.canvas.axes.legend(loc=2, prop={'size': 5})
-        self.mplWidgetFour.canvas.axes.legend(loc=2, prop={'size': 5})
-        self.mplWidgetFive.canvas.axes.legend(loc=2, prop={'size': 5})
-        self.mplWidgetSix.canvas.axes.legend(loc=2, prop={'size': 5})
+        self.mplWidgetOne.canvas.axes.legend(loc=2, prop={'size': 8})
+        self.mplWidgetTwo.canvas.axes.legend(loc=2, prop={'size': 8})
+        self.mplWidgetThree.canvas.axes.legend(loc=2, prop={'size': 8})
+        self.mplWidgetFour.canvas.axes.legend(loc=2, prop={'size': 8})
+        self.mplWidgetFive.canvas.axes.legend(loc=2, prop={'size': 8})
+        self.mplWidgetSix.canvas.axes.legend(loc=2, prop={'size': 8})
         self.mplWidgetOne.canvas.axes.grid()
         self.mplWidgetTwo.canvas.axes.grid()
         self.mplWidgetThree.canvas.axes.grid()
@@ -164,6 +165,10 @@ class MainWindow(QMainWindow):
         print("Hello")
 
 if __name__ == "__main__":
+    transistor = tdb.load({'name': 'Fuji_2MBI300XBE120-50'})
+    # transistor.plot_energy_data()
+    transistor.switch.e_on[1].graph_i_e = np.delete(transistor.switch.e_on[1].graph_i_e, [28, 29], axis=1)
+    transistor.save(overwrite=True)
     app = QApplication(sys.argv)
     app.setStyle('Fusion')
     mainWindow = MainWindow()
