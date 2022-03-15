@@ -1213,10 +1213,10 @@ class Transistor:
                 else:
                     raise Exception(f"graph_t_rthjc in {input_type}'s foster thermal object is empty!")
         except Exception as e:
-            print("Thermal parameter computation failed: {0}".format(e))
+            pass
         else:
             exec(f"self.{input_type}.thermal_foster = foster_args")
-            print(input_type, ':Thermal parameters re-assigned to foster object')
+
 
     def compare_channel_linearized(self, i_channel: float, t_j: float = 150, v_g: float = 15) -> None:
         """
