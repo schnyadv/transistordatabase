@@ -1062,14 +1062,15 @@ def plot_v_eoss(transistor1, transistor2, transistor3, matplotlibwidget):
 
 
     transistor_list = [transistor1, transistor2, transistor3]
+    color_list = ["blue", "green", "red"]
 
-    for transistor in transistor_list:
+    for m in range(len(transistor_list)):
         try:
-            v_eoss = transistor.calc_v_eoss()
-            matplotlibwidget.axis.plot(v_eoss[0], v_eoss[1], label=transistor.name)
+            v_eoss = transistor_list[m].calc_v_eoss()
+            matplotlibwidget.axis.plot(v_eoss[0], v_eoss[1], label=transistor_list[m].name, color=color_list[m])
         except:
             pass
-            MainWindow.show_popup_message(MainWindow, f"Output capacitance energy curves are not available for <b>{transistor.name}</b>!")
+            MainWindow.show_popup_message(MainWindow, f"Output capacitance energy curves are not available for <b>{transistor_list[m].name}</b>!")
 
     try:
         matplotlibwidget.axis.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
@@ -1110,14 +1111,15 @@ def plot_v_qoss(transistor1, transistor2, transistor3, matplotlibwidget):
 
 
     transistor_list = [transistor1, transistor2, transistor3]
+    color_list = ["blue", "green", "red"]
 
-    for transistor in transistor_list:
+    for m in range(len(transistor_list)):
         try:
-            v_qoss = transistor.calc_v_qoss()
-            matplotlibwidget.axis.plot(v_qoss[0], v_qoss[1], label=transistor.name)
+            v_qoss = transistor_list[m].calc_v_qoss()
+            matplotlibwidget.axis.plot(v_qoss[0], v_qoss[1], label=transistor_list[m].name, color=color_list[m])
 
         except:
-            MainWindow.show_popup_message(MainWindow, f"Output capacitance charge curves are not available for <b>{transistor.name}</b>!")
+            MainWindow.show_popup_message(MainWindow, f"Output capacitance charge curves are not available for <b>{transistor_list[m].name}</b>!")
 
     try:
         matplotlibwidget.axis.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
