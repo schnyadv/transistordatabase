@@ -57,3 +57,6 @@ NX type (press-fit)
 #Plecs importer
 PLECS Import
 GaNPX
+#Microsemi
+SP1F
+SP3F
